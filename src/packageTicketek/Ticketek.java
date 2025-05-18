@@ -1,9 +1,16 @@
 package packageTicketek;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Ticketek implements ITicketek{
 
+	HashMap<String, Usuario> usuarios;
+	HashMap<String, Espectaculo> espectaculos;
+	HashMap<String, Sede> sedes;
+	HashMap<String, Funcion> funciones; //el string de funciones es una fecha ? (no recuerdo, supongo que sí porque la fecha en la que se da es única??)
+	HashMap<String, Entrada> entradas;
+	
 	@Override
 	public void registrarSede(String nombre, String direccion, int capacidadMaxima) {
 		// TODO Auto-generated method stub
@@ -27,19 +34,51 @@ public class Ticketek implements ITicketek{
 
 	@Override
 	public void registrarUsuario(String email, String nombre, String apellido, String contrasenia) {
-		// TODO Auto-generated method stub
+		
+		if(usuarios.containsKey(email)) {
+			throw new RuntimeException("El email ya está registrado");
+		}
+		
+		if(email.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || contrasenia.isEmpty()) {
+			throw new RuntimeException("Los datos no son aceptables");
+		}
+		
+		Usuario usuario = new Usuario(email, nombre, apellido, contrasenia);
+		usuarios.put(email, usuario);
 		
 	}
 
 	@Override
 	public void registrarEspectaculo(String nombre) {
-		// TODO Auto-generated method stub
+		
+		if(espectaculos.containsKey(nombre)) {
+			throw new RuntimeException("Este espectaculo ya está registrado");
+		}
+		
+		Espectaculo espectaculo = new Espectaculo(nombre);
+		espectaculos.put(nombre, espectaculo);
 		
 	}
 
 	@Override
 	public void agregarFuncion(String nombreEspectaculo, String fecha, String sede, double precioBase) {
-		// TODO Auto-generated method stub
+
+		if(!espectaculos.containsKey(nombreEspectaculo)) {
+			throw new RuntimeException("El espectaculo no está registrado");
+		}
+		
+		if(!sedes.containsKey(sede)) {
+			throw new RuntimeException("La sede no está registrada");
+		}
+		
+		if(funciones.containsKey(fecha)) {
+			throw new RuntimeException("Ya hay una funcion para esa fecha");
+		}
+		
+		Funcion funcion = new Funcion(nombreEspectaculo, fecha, sede, precioBase);
+		funciones.put(fecha, funcion);
+		
+		espectaculos.get(nombreEspectaculo).agregarFuncion();
 		
 	}
 

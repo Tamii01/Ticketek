@@ -60,6 +60,19 @@ public class Ticketek implements ITicketek{
 		
 	}
 
+    /**
+     * 14) Agrega una funcion nueva a un espectaculo ya registrado.
+     * 
+     * Si el espectaculo no está registrado o la sede o algun campo 
+     * no es valido, se lanza una excepcion.
+     * Si ya hay una funcion para esa fecha, lanza excepcion.
+     * 
+     * @param nombreEspectaculo
+     * @param fecha en formato: dd/mm/YY
+     * @param sede
+     * @param precioBase
+     */
+	
 	@Override
 	public void agregarFuncion(String nombreEspectaculo, String fecha, String sede, double precioBase) {
 
@@ -96,10 +109,28 @@ public class Ticketek implements ITicketek{
 		return null;
 	}
 
+
+    /**
+     * 5) Devuelve un string donde cada fila representa una funcion 
+     * y se detalla con el siguiente formato:
+     * 	- Si es estadio: " - ({FECHA}) {NOMBRE SEDE} - {ENTRADAS VENDIDAS} / {CAPACIDAD SEDE}"
+     *  - si no es estadio: " - ({FECHA}) {NOMBRE SEDE} - {NOMBRE SECTOR1}: {ENTRADAS VENDIDAS 1} / {CAPACIDAD SECTOR} | {NOMBRE SECTOR 2}: {ENTRADAS VENDIDAS 2} / {CAPACIDAD SECTOR 2} ..."
+     * 
+     * Por ejemplo:
+     *  - (24/07/2025) El Monumental - 200/500
+     *  - (31/07/2025) Teatro Colón - Platea VIP: 30/50 | Platea Común: 60/70 | Platea Baja: 0/70 | Platea Alta: 50/50
+     * 
+     * @return un string con la lista de funciones del espectaculo.
+     */
 	@Override
 	public String listarFunciones(String nombreEspectaculo) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		if(espectaculos.containsKey(nombreEspectaculo)) {
+			
+		}
+		
+		return "hola";
+	
 	}
 
 	@Override

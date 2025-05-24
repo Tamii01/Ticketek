@@ -1,64 +1,64 @@
 package packageTicketek;
 
-import java.util.List;
-
 public class Funcion {
 
-	String nombreEspectaculo; //lo añadí recién, supongo que una función tiene el nombre del espectaculo
-	String sede;
+	String nombreEspectaculo; // lo añadí recién, supongo que una función tiene el nombre del espectaculo
 	String fecha;
-	List<Integer> entradasVendidas; //recién agregado
+	Sede sede;
+	int entradasVendidas; // recién agregado
 	double precioBase;
-	
 
 	// Constructor
-	public Funcion(String nombreEspectaculo, String fecha, String sede, double precioBase) {
+	public Funcion(String nombreEspectaculo, String fecha, Sede sede, double precioBase) {
 		this.nombreEspectaculo = nombreEspectaculo;
 		this.fecha = fecha;
 		this.sede = sede;
 		this.precioBase = precioBase;
 	}
 
+//	@Override
+//	public boolean equals(Object obj) {
+//		return true;
+//	}
 
 	public String getNombreEspectaculo() {
 		return nombreEspectaculo;
 	}
 
-
 	public void setNombreEspectaculo(String nombreEspectaculo) {
 		this.nombreEspectaculo = nombreEspectaculo;
 	}
 
-
-	public String getSede() {
+	public Sede getSede() {
 		return sede;
 	}
 
-
-	public void setSede(String sede) {
+	public void setSede(Sede sede) {
 		this.sede = sede;
 	}
-
 
 	public String getFecha() {
 		return fecha;
 	}
 
-
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
-
 
 	public double getPrecioBase() {
 		return precioBase;
 	}
 
-
 	public void setPrecioBase(double precioBase) {
 		this.precioBase = precioBase;
 	}
-	
-	
-	
+
+	public int getEntradasVendidas() {
+		return entradasVendidas;
+	}
+
+	public void setEntradasVendidas(int entradasVendidas) {
+		this.entradasVendidas = entradasVendidas;
+	}
+
 }

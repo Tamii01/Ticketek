@@ -11,10 +11,20 @@ public class Ticketek implements ITicketek {
 	HashMap<String, Funcion> funciones;
 	HashMap<String, Entrada> entradas;
 
-	//ESTADIO
+	
+	
+	public Ticketek() {
+        usuarios = new HashMap<>();
+        espectaculos = new HashMap<>();
+        sedes = new HashMap<>();
+        funciones = new HashMap<>();
+        entradas = new HashMap<>();
+	}
+	//REGISTRO DE ESTADIO
 	@Override
 	public void registrarSede(String nombre, String direccion, int capacidadMaxima) {
-
+        
+		//Verifica si la sede ya esta registrada
 		if (sedes.containsKey(nombre)) {
 			throw new RuntimeException("Esta sede ya está registrada");
 		}
@@ -31,7 +41,7 @@ public class Ticketek implements ITicketek {
 		sedes.put(nombre, estadio);
 	}
 
-	//TEATRO
+	//REGISTRO DE TEATRO
 	@Override
 	public void registrarSede(String nombre, String direccion, int capacidadMaxima, int asientosPorFila,
 			String[] sectores, int[] capacidad, int[] porcentajeAdicional) {
@@ -61,7 +71,7 @@ public class Ticketek implements ITicketek {
 		
 	}
 
-	//MINIESTADIO
+	//REGISTRO DE MINIESTADIO
 	@Override
 	public void registrarSede(String nombre, String direccion, int capacidadMaxima, int asientosPorFila,
 			int cantidadPuestos, double precioConsumicion, String[] sectores, int[] capacidad,

@@ -12,15 +12,6 @@ public class Ticketek implements ITicketek {
 	HashMap<String, Funcion> funciones = new HashMap<>();
 	HashMap<String, Entrada> entradas = new HashMap<>();
 	
-	public Ticketek() {
-		this.espectaculos = new HashMap<>();
-	}
-	
-
-<<<<<<< HEAD
-	// ESTADIO
-=======
-	
 	
 	public Ticketek() {
         usuarios = new HashMap<>();
@@ -30,10 +21,9 @@ public class Ticketek implements ITicketek {
         entradas = new HashMap<>();
 	}
 	//REGISTRO DE ESTADIO
->>>>>>> branch 'master' of https://github.com/Tamii01/Ticketek.git
+
 	@Override
 	public void registrarSede(String nombre, String direccion, int capacidadMaxima) {
-<<<<<<< HEAD
 
 //		if (sedes.containsKey(nombre)) {
 //			throw new RuntimeException("Esta sede ya está registrada");
@@ -49,31 +39,8 @@ public class Ticketek implements ITicketek {
 //
 //		Estadio estadio = new Estadio(nombre, direccion, capacidadMaxima);
 //		sedes.put(nombre, estadio);
-=======
-        
-		//Verifica si la sede ya esta registrada
-		if (sedes.containsKey(nombre)) {
-			throw new RuntimeException("Esta sede ya está registrada");
-		}
-
-		if (direccion.isEmpty() || direccion == null) {
-			throw new RuntimeException("La dirección no puede estar vacía");
-		}
-		
-		if(capacidadMaxima <= 0) {
-			throw new RuntimeException("La capacidad debe ser mayor a 0");
-		}
-		
-		Estadio estadio = new Estadio(nombre, direccion, capacidadMaxima);
-		sedes.put(nombre, estadio);
->>>>>>> branch 'master' of https://github.com/Tamii01/Ticketek.git
 	}
-
-<<<<<<< HEAD
-	// TEATRO
-=======
 	//REGISTRO DE TEATRO
->>>>>>> branch 'master' of https://github.com/Tamii01/Ticketek.git
 	@Override
 	public void registrarSede(String nombre, String direccion, int capacidadMaxima, int asientosPorFila,
 			String[] sectores, int[] capacidad, int[] porcentajeAdicional) {
@@ -104,11 +71,7 @@ public class Ticketek implements ITicketek {
 
 	}
 
-<<<<<<< HEAD
-	// MINIESTADIO
-=======
 	//REGISTRO DE MINIESTADIO
->>>>>>> branch 'master' of https://github.com/Tamii01/Ticketek.git
 	@Override
 	public void registrarSede(String nombre, String direccion, int capacidadMaxima, int asientosPorFila,
 			int cantidadPuestos, double precioConsumicion, String[] sectores, int[] capacidad,

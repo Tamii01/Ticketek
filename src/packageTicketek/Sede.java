@@ -9,7 +9,7 @@ public abstract class Sede {
 	
 	public Sede(String nombre, String direccion, int capacidadMaxima) {
 		this.nombre = nombre;
-		this.direccion = direccion;
+		this.direccion = direccion; //prueba
 		this.capacidadMaxima = capacidadMaxima;
 	}
 	

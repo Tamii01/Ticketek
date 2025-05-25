@@ -2,7 +2,7 @@ package packageTicketek;
 
 public class Funcion {
 
-	String nombreEspectaculo; // lo añadí recién, supongo que una función tiene el nombre del espectaculo
+	String nombreEspectaculo;
 	String fecha;
 	Sede sede;
 	int entradasVendidas; // recién agregado
@@ -23,6 +23,9 @@ public class Funcion {
 		}
 		return true;
 	}
+	
+	
+	
 
 	public String getNombreEspectaculo() {
 		return nombreEspectaculo;

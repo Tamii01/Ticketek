@@ -1,7 +1,6 @@
 package packageTicketek;
 
 public class Entrada {
-
 	Sede sede;
 	Espectaculo espectaculo;
 	String codigo;

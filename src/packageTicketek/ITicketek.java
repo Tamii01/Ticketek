@@ -156,7 +156,7 @@ public interface ITicketek {
      */
     String listarFunciones(String nombreEspectaculo);
 
-    
+     
     /**
      * 15) Busca todas las entradas vendidas para un espectaculo,
      * es decir, las entradas para todas sus funciones.

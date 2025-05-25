@@ -8,21 +8,60 @@ public class Ticketek implements ITicketek {
 	HashMap<String, Usuario> usuarios;
 	HashMap<String, Espectaculo> espectaculos;
 	HashMap<String, Sede> sedes;
-	HashMap<String, Funcion> funciones; // el string de funciones es una fecha ? (no recuerdo, supongo que sí porque la
-										// fecha en la que se da es única??)
+	HashMap<String, Funcion> funciones;
 	HashMap<String, Entrada> entradas;
 
+	//ESTADIO
 	@Override
 	public void registrarSede(String nombre, String direccion, int capacidadMaxima) {
-		// TODO Auto-generated method stub
+
+		if (sedes.containsKey(nombre)) {
+			throw new RuntimeException("Esta sede ya está registrada");
+		}
+
+		if (direccion.isEmpty() || direccion == null) {
+			throw new RuntimeException("La dirección no puede estar vacía");
+		}
+		
+		if(capacidadMaxima <= 0) {
+			throw new RuntimeException("La capacidad debe ser mayor a 0");
+		}
+		
+		Estadio estadio = new Estadio(nombre, direccion, capacidadMaxima);
+		sedes.put(nombre, estadio);
 	}
 
+	//TEATRO
 	@Override
 	public void registrarSede(String nombre, String direccion, int capacidadMaxima, int asientosPorFila,
 			String[] sectores, int[] capacidad, int[] porcentajeAdicional) {
-		// TODO Auto-generated method stub
+		
+		if(sedes.containsKey(nombre)) {
+			throw new RuntimeException("Esta sede ya está registrada");
+		}
+		
+		if(direccion.isEmpty() || direccion == null) {
+			throw new RuntimeException("La dirección no puede estar vacía");
+		}
+		
+		if(capacidadMaxima <= 0 || asientosPorFila <= 0) {
+			throw new RuntimeException("Debe ser mayor a 0");
+		}
+		
+		if(capacidad == null || porcentajeAdicional == null ) {
+			throw new RuntimeException("No debe ser null");
+		}
+		
+		if(sectores == null) {
+			throw new RuntimeException("Debe tener sectores");
+		}
+		
+		Teatro teatro = new Teatro(nombre, direccion, capacidadMaxima, asientosPorFila, sectores, capacidad, porcentajeAdicional);
+		sedes.put(nombre, teatro);
+		
 	}
 
+	//MINIESTADIO
 	@Override
 	public void registrarSede(String nombre, String direccion, int capacidadMaxima, int asientosPorFila,
 			int cantidadPuestos, double precioConsumicion, String[] sectores, int[] capacidad,
@@ -38,7 +77,9 @@ public class Ticketek implements ITicketek {
 			throw new RuntimeException("El email ya está registrado");
 		}
 
-		if (email.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || contrasenia.isEmpty()) {
+		if (email.isEmpty() || email == null || nombre.isEmpty() || nombre == null || apellido.isEmpty()
+				|| apellido == null || contrasenia.isEmpty() || contrasenia == null) {
+
 			throw new RuntimeException("Los datos no son aceptables");
 		}
 
@@ -112,14 +153,13 @@ public class Ticketek implements ITicketek {
 
 	/**
 	 * 5) Devuelve un string donde cada fila representa una funcion y se detalla con
-	 * el siguiente formato: 
-	 * - Si es estadio: " - ({FECHA}) {NOMBRE SEDE} - {ENTRADAS VENDIDAS} / {CAPACIDAD SEDE}" 
-	 * - si no es estadio: " - ({FECHA}) {NOMBRE SEDE} - {NOMBRE SECTOR1}: {ENTRADAS VENDIDAS 1} / {CAPACIDAD SECTOR}
+	 * el siguiente formato: - Si es estadio: " - ({FECHA}) {NOMBRE SEDE} -
+	 * {ENTRADAS VENDIDAS} / {CAPACIDAD SEDE}" - si no es estadio: " - ({FECHA})
+	 * {NOMBRE SEDE} - {NOMBRE SECTOR1}: {ENTRADAS VENDIDAS 1} / {CAPACIDAD SECTOR}
 	 * | {NOMBRE SECTOR 2}: {ENTRADAS VENDIDAS 2} / {CAPACIDAD SECTOR 2} ..."
 	 * 
-	 * Por ejemplo: 
-	 * - (24/07/2025) El Monumental - 200/500 
-	 * - (31/07/2025) Teatro Colón - Platea VIP: 30/50 | Platea Común: 60/70 | Platea Baja: 0/70 | Platea
+	 * Por ejemplo: - (24/07/2025) El Monumental - 200/500 - (31/07/2025) Teatro
+	 * Colón - Platea VIP: 30/50 | Platea Común: 60/70 | Platea Baja: 0/70 | Platea
 	 * Alta: 50/50
 	 * 
 	 * @return un string con la lista de funciones del espectaculo.
@@ -137,20 +177,21 @@ public class Ticketek implements ITicketek {
 				if (sede instanceof Estadio) {
 					sb.append(" - (" + funcion.getFecha() + ") " + sede.getNombre() + " - "
 							+ funcion.getEntradasVendidas() + "/" + sede.getCapacidadMaxima());
-				} else {
-					sb.append(" - (" + funcion.getFecha() + ") " + sede.getNombre() + " - " );
+				}
+
+				if (sede instanceof Teatro) {
+					Teatro teatro = (Teatro) sede;
+					sb.append("- (" + funcion.getFecha() + ") " + sede.getNombre() + " - ");
 				}
 			}
-
 		}
-
 		return sb.toString();
 
 	}
 
 	@Override
 	public List<IEntrada> listarEntradasEspectaculo(String nombreEspectaculo) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 

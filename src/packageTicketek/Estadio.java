@@ -2,11 +2,11 @@ package packageTicketek;
 
 public class Estadio extends Sede {
 
-	int precioBase;
+	int precio;
 	
-	public Estadio(String nombre, String direccion, int capacidadMaxima, int precioBase) {
+	public Estadio(String nombre, String direccion, int capacidadMaxima) {
 		super(nombre, direccion, capacidadMaxima);
-		this.precioBase = precioBase;
+		this.precio = precio;
 	}
 	
 }

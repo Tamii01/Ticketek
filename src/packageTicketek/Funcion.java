@@ -16,10 +16,13 @@ public class Funcion {
 		this.precioBase = precioBase;
 	}
 
-//	@Override
-//	public boolean equals(Object obj) {
-//		return true;
-//	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this.nombreEspectaculo.equals(obj)) {
+			return true;
+		}
+		return true;
+	}
 
 	public String getNombreEspectaculo() {
 		return nombreEspectaculo;

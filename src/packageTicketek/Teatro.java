@@ -8,6 +8,6 @@ public class Teatro extends Sede{
 	public Teatro(String nombre, String direccion, int capacidadMaxima, int asientosPorFila,
 			String[] sectores, int[] capacidad, int[] porcentajeAdicional) {
 		super(nombre, direccion, capacidadMaxima);
-		this.sectores = sectores;
+		this.sectores = sectores; //prueba
 	}
 }

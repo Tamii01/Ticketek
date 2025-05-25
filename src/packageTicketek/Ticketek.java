@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Ticketek implements ITicketek {
 
-	HashMap<String, Usuario> usuarios;
-	HashMap<String, Espectaculo> espectaculos;
+	HashMap<String, Usuario> usuarios; //Email, Usuario
+	HashMap<String, Espectaculo> espectaculos; //Códgio, Usuario
 	HashMap<String, Sede> sedes;
 	HashMap<String, Funcion> funciones;
 	HashMap<String, Entrada> entradas;
@@ -255,7 +255,7 @@ public class Ticketek implements ITicketek {
      */
 	@Override
 	public boolean anularEntrada(IEntrada entrada, String contrasenia) {
-		// TODO Auto-generated method stub
+	
 		return false;
 	}
 
@@ -291,8 +291,16 @@ public class Ticketek implements ITicketek {
 	 */
 	@Override
 	public double totalRecaudado(String nombreEspectaculo) {
-		Espectaculo esp = espectaculos.get(nombreEspectaculo);
-		return esp.recaudacion;
+		
+		double recaud = 0;
+		
+		for(Entrada entrada : entradas.values()){
+			if(entrada.getEspectaculo().equals(nombreEspectaculo)) {
+				recaud += entrada.precio();
+			}
+		}
+		
+		return recaud;
 	}
 
 	@Override

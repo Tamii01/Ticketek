@@ -1,14 +1,14 @@
 package packageTicketek;
 
-public class Entrada {
-	Sede sede;
-	Espectaculo espectaculo;
+public class Entrada implements IEntrada{
+	String sede;
+	String espectaculo;
 	String codigo;
 	String fecha;
 	String ubicacion;
-	int precio;
+	double precio;
 	
-	void crearEntrada(Sede sede, Espectaculo espectaculo, String codigo, String fecha, String ubicacion, int precio) {
+	void crearEntrada(String sede, String espectaculo, String codigo, String fecha, String ubicacion, double precio) {
 		this.sede = sede;
 		this.espectaculo = espectaculo;
 		this.codigo = codigo;
@@ -17,19 +17,19 @@ public class Entrada {
 		this.precio = precio;
 	}
 
-	public Sede getSede() {
+	public String getSede() {
 		return sede;
 	}
 
-	public void setSede(Sede sede) {
+	public void setSede(String sede) {
 		this.sede = sede;
 	}
 
-	public Espectaculo getEspectaculo() {
+	public String getEspectaculo() {
 		return espectaculo;
 	}
 
-	public void setEspectaculo(Espectaculo espectaculo) {
+	public void setEspectaculo(String espectaculo) {
 		this.espectaculo = espectaculo;
 	}
 
@@ -57,12 +57,24 @@ public class Entrada {
 		this.ubicacion = ubicacion;
 	}
 
-	public int getPrecio() {
+	public double getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(int precio) {
+	public void setPrecio(double precio) {
 		this.precio = precio;
+	}
+
+	@Override
+	public double precio() {
+		// TODO Auto-generated method stub
+		return precio;
+	}
+
+	@Override
+	public String ubicacion() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

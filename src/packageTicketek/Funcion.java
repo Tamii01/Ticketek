@@ -23,9 +23,6 @@ public class Funcion {
 		}
 		return true;
 	}
-	
-	
-	
 
 	public String getNombreEspectaculo() {
 		return nombreEspectaculo;

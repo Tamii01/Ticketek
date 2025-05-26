@@ -8,6 +8,12 @@ public class Estadio extends Sede {
 		super(nombre, direccion, capacidadMaxima);
 		
 	}
+
+	@Override
+	public boolean esNumerada() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 	public boolean esNumerada() {
 	   return false;

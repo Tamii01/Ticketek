@@ -10,21 +10,13 @@ public abstract class Sede {
 	public Sede(String nombre, String direccion, int capacidadMaxima) {
 		this.nombre = nombre;
 		this.direccion = direccion; 
-		this.capacidadMaxima = capacidadMaxima; //prueba8
+		this.capacidadMaxima = capacidadMaxima;
 	}
 	
 	int calcularPrecioEntrada() {
 		return 0;
 	}
 	
-	@Override
-	public boolean equals(Object obj) {
-		if(this.nombre.equals(obj)) {
-			return true;
-		}
-		return false;
-	}
-
 	public String getNombre() {
 		return nombre;
 	}

@@ -164,19 +164,29 @@ public class Ticketek implements ITicketek {
 	//Sedes no numeradas, CAMPO
 	@Override
 	public List<IEntrada> venderEntrada(String nombreEspectaculo, String fecha, String email, String contrasenia,
-			int cantidadEntradas) {
+		int cantidadEntradas) {
 		List<IEntrada> entradasV = new ArrayList<>(); //lista de entradas vendidas
+		String nomSede=null;
+		Sede sede = null;
+		//for (Espectaculo esp: espectaculos.values()) {
+			    //if(esp.nombre.equals(nombreEspectaculo)) {
+			    	for (Funcion func : funciones.values()) {
+			            if (func.fecha.equals(fecha)) {
+			            	nomSede=func.sede;
+			            	sede = sedes.get(nomSede);
+			            	break;
+			            }
+			            
+			    	}//fin for interno
+			   // }
+			   
+		//}//fin for
 		
-		
-		for (Espectaculo esp: espectaculos.values()) {
-			    if(esp.nombre.equals(nombreEspectaculo)) {
-			    	
-			    }
-			    	
-			    	//throw new RuntimeException("La sede esta enumerada");
-			    
-		    
-		}
+		if (sede == null) {
+		    //throw new RuntimeException("No se encontró la sede"); //Me da error
+		} /*else if (!(sede instanceof Teatro)) {
+		    throw new RuntimeException("La sede no es un teatro");
+		}*/
 		// TODO Auto-generated method stub
 		return entradasV;
 	}

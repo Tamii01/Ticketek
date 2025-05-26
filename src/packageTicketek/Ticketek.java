@@ -177,8 +177,8 @@ public class Ticketek implements ITicketek {
 			            	break;
 			            }
 			            
-			    	}//fin del for
-			   // }
+			    	}
+			   //
 			   
 		//}//fin for
 		

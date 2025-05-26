@@ -40,4 +40,5 @@ public abstract class Sede {
 	public void setCapacidadMaxima(int capacidadMaxima) {
 		this.capacidadMaxima = capacidadMaxima;
 	}
+	public abstract boolean esNumerada();
 }

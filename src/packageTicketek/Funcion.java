@@ -5,7 +5,7 @@ public class Funcion {
 	String nombreEspectaculo;
 	String fecha;
 	String sede;
-	int entradasVendidas; // recién agregado
+	//int entradasVendidas; // recién agregado
 	double precioBase;
 
 	// Constructor
@@ -56,12 +56,12 @@ public class Funcion {
 		this.precioBase = precioBase;
 	}
 
-	public int getEntradasVendidas() {
+	/*public int getEntradasVendidas() {
 		return entradasVendidas;
 	}
 
 	public void setEntradasVendidas(int entradasVendidas) {
 		this.entradasVendidas = entradasVendidas;
-	}
+	}*/
 
 }

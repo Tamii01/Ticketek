@@ -160,17 +160,28 @@ public class Ticketek implements ITicketek {
 	 * @param cantidadEntradas
 	 * @return
 	 */
+	//--------------VENTA DE ENTRADAS---------------
+	//Sedes no numeradas, CAMPO
 	@Override
 	public List<IEntrada> venderEntrada(String nombreEspectaculo, String fecha, String email, String contrasenia,
 			int cantidadEntradas) {
+		List<IEntrada> entradasV = new ArrayList<>();
+		
+		for (Object clave : sedes.keySet()) {
+			    if (clave instanceof Integer) {
+			    	throw new RuntimeException("La sede esta enumerada");
+			    } 
+		    
+		}
 		// TODO Auto-generated method stub
-		return null;
+		return entradasV;
 	}
-
+     
+	//Sedes numeradas, teatro y mini estadio
 	@Override
 	public List<IEntrada> venderEntrada(String nombreEspectaculo, String fecha, String email, String contrasenia,
 			String sector, int[] asientos) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

@@ -17,14 +17,6 @@ public abstract class Sede {
 		return 0;
 	}
 	
-	@Override
-	public boolean equals(Object obj) {
-		if(this.nombre.equals(obj)) {
-			return true;
-		}
-		return false;
-	}
-
 	public String getNombre() {
 		return nombre;
 	}

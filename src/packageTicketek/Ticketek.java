@@ -165,7 +165,7 @@ public class Ticketek implements ITicketek {
 	@Override
 	public List<IEntrada> venderEntrada(String nombreEspectaculo, String fecha, String email, String contrasenia,
 			int cantidadEntradas) {
-		List<IEntrada> entradasV = new ArrayList<>(); //lista de entradas vendidad
+		List<IEntrada> entradasV = new ArrayList<>(); 
 		
 		for (Object clave : sedes.keySet()) {
 			    if (clave instanceof Integer) {

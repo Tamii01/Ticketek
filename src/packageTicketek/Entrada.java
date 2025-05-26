@@ -1,8 +1,9 @@
 package packageTicketek;
 
 public class Entrada implements IEntrada{
-	String sede;
+	
 	String espectaculo;
+	String sede;
 	String codigo;
 	String fecha;
 	String ubicacion;

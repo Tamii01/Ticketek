@@ -16,6 +16,7 @@ public class Espectaculo {
 	}
 
 	public void agregarFuncion(Funcion funcion) {
+		this.funciones.put(funcion.getFecha(), funcion);
 	}
 
 	public String getNombre() {

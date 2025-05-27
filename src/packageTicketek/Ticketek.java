@@ -153,21 +153,36 @@ public class Ticketek implements ITicketek {
 	//Sedes no numeradas, CAMPO
 	@Override
 	public List<IEntrada> venderEntrada(String nombreEspectaculo, String fecha, String email, String contrasenia,
-			int cantidadEntradas) {
+		int cantidadEntradas) {
+		
+		 
+		   
 		List<IEntrada> entradasV = new ArrayList<>(); //lista de entradas vendidas
+		String nomSede=null;
+		Sede sede = null;
+		//for (Espectaculo esp: espectaculos.values()) {
+			    //if(esp.nombre.equals(nombreEspectaculo)) {
+			    	for (Funcion func : funciones.values()) {
+			            if (func.fecha.equals(fecha)) {
+			            	nomSede=func.sede;
+			            	sede = sedes.get(nomSede);
+			            	break;
+			            }
+			            
+			    	}//fin del for
+			   //
+			   
+		//}//fin for
 		
-		
-		for (Espectaculo esp: espectaculos.values()) {
-			    if(esp.nombre.equals(nombreEspectaculo)) {
-			    	
-			    }
-			    	
-			    	//throw new RuntimeException("La sede esta enumerada");
-			    
-		    
-		}
+		if (sede == null) {
+		    //throw new RuntimeException("No se encontró la sede"); //Me da error
+		} /*else if (!(sede instanceof Teatro)) {
+		    throw new RuntimeException("La sede no es un teatro");
+		}*/
 		// TODO Auto-generated method stub
-		return entradasV;
+		 
+		 
+		 return entradasV;
 	}
      
 	//Sedes numeradas, teatro y mini estadio
@@ -216,13 +231,15 @@ public class Ticketek implements ITicketek {
 	@Override
 	public List<IEntrada> listarEntradasEspectaculo(String nombreEspectaculo) {
 
-		List<IEntrada> entradasEspectaculo = new ArrayList<IEntrada>();
+		 List<IEntrada> entradasEspectaculo = new ArrayList<>();
 
-		for (String entrada : entradas.keySet()) {
+		    for (Entrada entrada : entradas.values()) {
+		        if (entrada.espectaculo.equals(nombreEspectaculo)) {
+		            entradasEspectaculo.add(entrada);
+		        }
+		    }
 
-		}
-
-		return null;
+		    return entradasEspectaculo;
 	}
 
 	@Override
@@ -233,8 +250,28 @@ public class Ticketek implements ITicketek {
 
 	@Override
 	public List<IEntrada> listarTodasLasEntradasDelUsuario(String email, String contrasenia) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		if (!usuarios.containsKey(email)) {
+	        throw new RuntimeException("El usuario no esta registrado");
+	    }
+
+	    if (!usuarios.get(email).contrasenia.equals(contrasenia)) {
+	        throw new RuntimeException("La contraseña no es valida");
+	    }
+
+	    List<IEntrada> entradasUsuario = new ArrayList<>();//lista para almacenar entradas del usuario
+
+	    for (Entrada entrada : entradas.values()) {
+	        if (entrada.usuario.equals(email)) {
+	            entradasUsuario.add(entrada); //agregamos las entradas a la lista
+	        }
+	    }
+
+	    
+	    if (entradasUsuario.isEmpty()) {
+	        throw new RuntimeException("No se encontraron entradas para el usuario");
+	    }
+	    return entradasUsuario;
 	}
 
 	/**
@@ -283,8 +320,8 @@ public class Ticketek implements ITicketek {
 
 	@Override
 	public double costoEntrada(String nombreEspectaculo, String fecha, String sector) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+	    return 0;
 	}
 
 	/**
@@ -297,7 +334,7 @@ public class Ticketek implements ITicketek {
 	public double totalRecaudado(String nombreEspectaculo) {
 		
 		double recaud = 0;
-		
+		/*
 		for(Entrada entrada : entradas.values()){
 			if(entrada.getEspectaculo().equals(nombreEspectaculo)) {
 				if(entrada.getSede().equals("Estadio")) {
@@ -318,15 +355,23 @@ public class Ticketek implements ITicketek {
 				
 			}
 		}
-		
+		*/
 		return recaud;
 	}
 
 	//DEVOLVER EN O(1)
 	@Override
 	public double totalRecaudadoPorSede(String nombreEspectaculo, String nombreSede) {
-		// TODO Auto-generated method stub
-		return 0;
+		double recaudacion = 0;
+
+	    for (Entrada entrada : entradas.values()) //recore las entradas
+	    {
+	        if (entrada.espectaculo.equals(nombreEspectaculo) && entrada.sede.equals(nombreSede)) {
+	            recaudacion += entrada.precio(); //suma los precios de las entradas
+	        }
+	    }
+
+	    return recaudacion;
 	}
 
 }

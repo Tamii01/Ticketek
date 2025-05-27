@@ -15,4 +15,7 @@ public class Estadio extends Sede {
 		return false;
 	}
 	
+	public boolean esNumerada() {
+	   return false;
+	}
 }

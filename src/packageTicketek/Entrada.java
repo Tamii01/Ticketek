@@ -2,21 +2,34 @@ package packageTicketek;
 
 public class Entrada implements IEntrada{
 	
-	String espectaculo;
-	String sede;
-	String codigo;
-	String fecha;
-	String ubicacion;
-	double precio;
+	 String espectaculo;
+    String fecha;
+    String sede;
+    String sector;
+    double precio;
+    String usuario;
+    int[] asientos;
 	
-	void crearEntrada(String sede, String espectaculo, String codigo, String fecha, String ubicacion, double precio) {
-		this.sede = sede;
-		this.espectaculo = espectaculo;
-		this.codigo = codigo;
-		this.fecha = fecha;
-		this.ubicacion = ubicacion;
-		this.precio = precio;
-	}
+    
+    //Usamos dos constructores, de acuerdo a los parametros 
+    public Entrada(String espectaculo, String fecha, String sede, double precio, String usuario) {
+        this.espectaculo = espectaculo;
+        this.fecha = fecha;
+        this.sede = sede;
+        this.precio = precio;
+        this.usuario = usuario;
+        this.sector = "CAMPO"; 
+    }
+
+    public Entrada(String espectaculo, String fecha, String sede, String sector, double precio, String usuario, int[] asientos) {
+        this.espectaculo = espectaculo;
+        this.fecha = fecha;
+        this.sede = sede;
+        this.sector = sector;
+        this.precio = precio;
+        this.usuario = usuario;
+        this.asientos = asientos;
+    }
 
 	public String getSede() {
 		return sede;
@@ -34,13 +47,9 @@ public class Entrada implements IEntrada{
 		this.espectaculo = espectaculo;
 	}
 
-	public String getCodigo() {
-		return codigo;
-	}
 
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
+
+	
 
 	public String getFecha() {
 		return fecha;
@@ -50,13 +59,13 @@ public class Entrada implements IEntrada{
 		this.fecha = fecha;
 	}
 
-	public String getUbicacion() {
+	/*public String getUbicacion() {
 		return ubicacion;
 	}
 
 	public void setUbicacion(String ubicacion) {
 		this.ubicacion = ubicacion;
-	}
+	}*/
 
 	public double getPrecio() {
 		return precio;

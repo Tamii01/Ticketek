@@ -373,8 +373,16 @@ public class Ticketek implements ITicketek {
 	//DEVOLVER EN O(1)
 	@Override
 	public double totalRecaudadoPorSede(String nombreEspectaculo, String nombreSede) {
-		// TODO Auto-generated method stub
-		return 0;
+		double recaudacion = 0;
+
+	    for (Entrada entrada : entradas.values()) //recore las entradas
+	    {
+	        if (entrada.espectaculo.equals(nombreEspectaculo) && entrada.sede.equals(nombreSede)) {
+	            recaudacion += entrada.precio(); //suma los precios de las entradas
+	        }
+	    }
+
+	    return recaudacion;
 	}
 
 }

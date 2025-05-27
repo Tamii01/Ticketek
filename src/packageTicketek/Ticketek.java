@@ -109,17 +109,6 @@ public class Ticketek implements ITicketek {
 		espectaculos.put(nombre, espectaculo);
 	}
 
-	/**
-	 * 14) Agrega una funcion nueva a un espectaculo ya registrado.
-	 * 
-	 * Si el espectaculo no está registrado o la sede o algun campo no es valido, se
-	 * lanza una excepcion. Si ya hay una funcion para esa fecha, lanza excepcion.
-	 * 
-	 * @param nombreEspectaculo
-	 * @param fecha             en formato: dd/mm/YY
-	 * @param sede
-	 * @param precioBase
-	 */
 
 	// ------------------------------------ CHECKEAR--------------------
 	@Override

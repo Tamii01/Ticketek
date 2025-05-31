@@ -7,10 +7,10 @@ import java.util.List;
 public class Ticketek implements ITicketek {
 
 	HashMap<String, Usuario> usuarios; //Email, Usuario
-	HashMap<String, Espectaculo> espectaculos; //Códgio, Usuario
-	HashMap<String, Sede> sedes;
-	HashMap<String, Funcion> funciones;
-	HashMap<String, Entrada> entradas;
+	HashMap<String, Espectaculo> espectaculos; //Nombre, Espectaculo
+	HashMap<String, Sede> sedes; //Nombre, Sede
+	HashMap<String, Funcion> funciones; //Fecha, Funcion
+	HashMap<String, Entrada> entradas;//Código?, Entrada
 
 	public Ticketek() {
 		this.usuarios = new HashMap<>();
@@ -105,6 +105,7 @@ public class Ticketek implements ITicketek {
 			throw new RuntimeException("Este espectaculo ya está registrado");
 		}
 
+
 		Espectaculo espectaculo = new Espectaculo(nombre);
 		espectaculos.put(nombre, espectaculo);
 	}
@@ -154,6 +155,21 @@ public class Ticketek implements ITicketek {
 	@Override
 	public List<IEntrada> venderEntrada(String nombreEspectaculo, String fecha, String email, String contrasenia,
 		int cantidadEntradas) {
+		
+		
+		
+		for(Funcion func : funciones.values()) {
+			if(func.getNombreEspectaculo().equals(nombreEspectaculo)) {
+				func.entradaVendida(cantidadEntradas);
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
 		
 		 
 		   
@@ -296,7 +312,7 @@ public class Ticketek implements ITicketek {
      */
 	@Override
 	public boolean anularEntrada(IEntrada entrada, String contrasenia) {
-	
+	//está bien el test, sale verde y no tengo nada(?
 		return false;
 	}
 
@@ -330,33 +346,33 @@ public class Ticketek implements ITicketek {
 	 * @param nombreEspectaculo
 	 * @return
 	 */
-	@Override
+//	@Override
 	public double totalRecaudado(String nombreEspectaculo) {
-		
-		double recaud = 0;
-		/*
-		for(Entrada entrada : entradas.values()){
-			if(entrada.getEspectaculo().equals(nombreEspectaculo)) {
-				if(entrada.getSede().equals("Estadio")) {
-					recaud += entrada.precio();
-				}
-				if(entrada.getSede().equals("Teatro") && entrada.getUbicacion().equals("VIP")) { //Suponiendo que ubicación es sector (Aunque lo dudo)
-					recaud += entrada.precio() * 1.70;
-				}
-				if(entrada.getSede().equals("Teatro") && entrada.getUbicacion().equals("Comun")) { //Suponiendo que ubicación es sector (Aunque lo dudo)
-					recaud += entrada.precio() * 1.40;
-				}
-				if(entrada.getSede().equals("Teatro") && entrada.getUbicacion().equals("Baja")) { //Suponiendo que ubicación es sector (Aunque lo dudo)
-					recaud += entrada.precio() * 1.50;
-				}
-				if(entrada.getSede().equals("Teatro") && entrada.getUbicacion().equals("Alta")) { //Suponiendo que ubicación es sector (Aunque lo dudo)
-					recaud += entrada.precio();
-				}
-				
-			}
-		}
-		*/
-		return recaud;
+//		
+//		double recaud = 0;
+//		
+//		for(Entrada entrada : entradas.values()){
+//			if(entrada.getEspectaculo().equals(nombreEspectaculo)) {
+//				if(entrada.getSede().equals("Estadio")) {
+//					recaud += entrada.precio();
+//				}
+//				if(entrada.getSede().equals("Teatro") && entrada.getUbicacion().equals("VIP")) { //Suponiendo que ubicación es sector (Aunque lo dudo)
+//					recaud += entrada.precio() * 1.70;
+//				}
+//				if(entrada.getSede().equals("Teatro") && entrada.getUbicacion().equals("Comun")) { //Suponiendo que ubicación es sector (Aunque lo dudo)
+//					recaud += entrada.precio() * 1.40;
+//				}
+//				if(entrada.getSede().equals("Teatro") && entrada.getUbicacion().equals("Baja")) { //Suponiendo que ubicación es sector (Aunque lo dudo)
+//					recaud += entrada.precio() * 1.50;
+//				}
+//				if(entrada.getSede().equals("Teatro") && entrada.getUbicacion().equals("Alta")) { //Suponiendo que ubicación es sector (Aunque lo dudo)
+//					recaud += entrada.precio();
+//				}
+//				
+//			}
+//		}
+//		
+		return 0;
 	}
 
 	//DEVOLVER EN O(1)

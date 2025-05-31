@@ -2,7 +2,8 @@ package packageTicketek;
 
 public class Entrada implements IEntrada{
 	
-	 String espectaculo;
+	String codigo;
+	String espectaculo;
     String fecha;
     String sede;
     String sector;

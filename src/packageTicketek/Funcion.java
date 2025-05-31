@@ -6,6 +6,7 @@ public class Funcion {
 	String fecha;
 	String sede;
 	double precioBase;
+	int entradaVendida;
 
 	// Constructor
 	public Funcion(String nombreEspectaculo, String fecha, String sede, double precioBase) {
@@ -13,6 +14,18 @@ public class Funcion {
 		this.fecha = fecha;
 		this.sede = sede;
 		this.precioBase = precioBase;
+	}
+
+	int entradaVendida(int cantidad) {
+		return this.entradaVendida += cantidad;
+	}
+
+	public int getEntradsVendida() {
+		return entradaVendida;
+	}
+
+	public void setEntradaVendida(int entradaVendida) {
+		this.entradaVendida = entradaVendida;
 	}
 
 	@Override
@@ -55,12 +68,11 @@ public class Funcion {
 		this.precioBase = precioBase;
 	}
 
-	/*public int getEntradasVendidas() {
-		return entradasVendidas;
-	}
-
-	public void setEntradasVendidas(int entradasVendidas) {
-		this.entradasVendidas = entradasVendidas;
-	}*/
+	/*
+	 * public int getEntradasVendidas() { return entradasVendidas; }
+	 * 
+	 * public void setEntradasVendidas(int entradasVendidas) { this.entradasVendidas
+	 * = entradasVendidas; }
+	 */
 
 }

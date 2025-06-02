@@ -346,33 +346,12 @@ public class Ticketek implements ITicketek {
 	 * @param nombreEspectaculo
 	 * @return
 	 */
-//	@Override
+	@Override
 	public double totalRecaudado(String nombreEspectaculo) {
-//		
-//		double recaud = 0;
-//		
-//		for(Entrada entrada : entradas.values()){
-//			if(entrada.getEspectaculo().equals(nombreEspectaculo)) {
-//				if(entrada.getSede().equals("Estadio")) {
-//					recaud += entrada.precio();
-//				}
-//				if(entrada.getSede().equals("Teatro") && entrada.getUbicacion().equals("VIP")) { //Suponiendo que ubicación es sector (Aunque lo dudo)
-//					recaud += entrada.precio() * 1.70;
-//				}
-//				if(entrada.getSede().equals("Teatro") && entrada.getUbicacion().equals("Comun")) { //Suponiendo que ubicación es sector (Aunque lo dudo)
-//					recaud += entrada.precio() * 1.40;
-//				}
-//				if(entrada.getSede().equals("Teatro") && entrada.getUbicacion().equals("Baja")) { //Suponiendo que ubicación es sector (Aunque lo dudo)
-//					recaud += entrada.precio() * 1.50;
-//				}
-//				if(entrada.getSede().equals("Teatro") && entrada.getUbicacion().equals("Alta")) { //Suponiendo que ubicación es sector (Aunque lo dudo)
-//					recaud += entrada.precio();
-//				}
-//				
-//			}
-//		}
-//		
-		return 0;
+		
+		double recaud = 0;
+	
+		return recaud;
 	}
 
 	//DEVOLVER EN O(1)

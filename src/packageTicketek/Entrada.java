@@ -48,10 +48,6 @@ public class Entrada implements IEntrada{
 		this.espectaculo = espectaculo;
 	}
 
-
-
-	
-
 	public String getFecha() {
 		return fecha;
 	}

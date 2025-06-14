@@ -8,14 +8,13 @@ public class Estadio extends Sede {
 		super(nombre, direccion, capacidadMaxima);
 		
 	}
-<<<<<<< HEAD
+
 
 	public boolean esNumerada() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-=======
->>>>>>> branch 'master' of https://github.com/Tamii01/Ticketek.git
-	
+
+
 	
 }

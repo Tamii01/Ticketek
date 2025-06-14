@@ -2,7 +2,8 @@ package packageTicketek;
 
 public class Entrada implements IEntrada{
 	
-	 String espectaculo;
+	String codigo;
+	String espectaculo;
     String fecha;
     String sede;
     String sector;
@@ -31,6 +32,26 @@ public class Entrada implements IEntrada{
         this.asientos = asientos;
     }
 
+    @Override
+    public double precio() {
+    	if (sector.equals("Platea Alta")) {
+    		return precio + 15000;
+    	} else if (sector.equals("Platea Media")) {
+    		return precio + 10000;
+    	} else if (sector.equals("Platea Baja")) {
+    		return precio + 5000;
+    	} else {
+    		return precio; // Campo u otro sector sin adicional
+    	}
+    }
+    
+	@Override
+	public String ubicacion() {
+		if (asientos == null) return sector;
+		return sector + " f:" + asientos[0] + " a:" + asientos[1];
+	} 
+    
+    
 	public String getSede() {
 		return sede;
 	}
@@ -47,10 +68,6 @@ public class Entrada implements IEntrada{
 		this.espectaculo = espectaculo;
 	}
 
-
-
-	
-
 	public String getFecha() {
 		return fecha;
 	}
@@ -59,14 +76,6 @@ public class Entrada implements IEntrada{
 		this.fecha = fecha;
 	}
 
-	/*public String getUbicacion() {
-		return ubicacion;
-	}
-
-	public void setUbicacion(String ubicacion) {
-		this.ubicacion = ubicacion;
-	}*/
-
 	public double getPrecio() {
 		return precio;
 	}
@@ -74,17 +83,4 @@ public class Entrada implements IEntrada{
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
-
-	@Override
-	public double precio() {
-		// TODO Auto-generated method stub
-		return precio;
-	}
-
-	@Override
-	public String ubicacion() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }

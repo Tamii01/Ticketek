@@ -2,41 +2,37 @@ package packageTicketek;
 
 public class Funcion {
 
-	String nombreEspectaculo;
+
 	String fecha;
-	String sede;
-	//int entradasVendidas; // recién agregado
+	Sede sede;
 	double precioBase;
+	int entradaVendida;
 
 	// Constructor
-	public Funcion(String nombreEspectaculo, String fecha, String sede, double precioBase) {
-		this.nombreEspectaculo = nombreEspectaculo;
+	public Funcion(String fecha, Sede sede, double precioBase) {
+
 		this.fecha = fecha;
 		this.sede = sede;
 		this.precioBase = precioBase;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this.nombreEspectaculo.equals(obj)) {
-			return true;
-		}
-		return true;
+	int entradasVendidas(int cantidad) {
+		return this.entradaVendida += cantidad;
 	}
 
-	public String getNombreEspectaculo() {
-		return nombreEspectaculo;
+	public int getEntradaVendida() {
+		return entradaVendida;
 	}
 
-	public void setNombreEspectaculo(String nombreEspectaculo) {
-		this.nombreEspectaculo = nombreEspectaculo;
+	public void setEntradaVendida(int entradaVendida) {
+		this.entradaVendida = entradaVendida;
 	}
 
-	public String getSede() {
+	public Sede getSede() {
 		return sede;
 	}
 
-	public void setSede(String sede) {
+	public void setSede(Sede sede) {
 		this.sede = sede;
 	}
 
@@ -56,12 +52,11 @@ public class Funcion {
 		this.precioBase = precioBase;
 	}
 
-	/*public int getEntradasVendidas() {
-		return entradasVendidas;
-	}
-
-	public void setEntradasVendidas(int entradasVendidas) {
-		this.entradasVendidas = entradasVendidas;
-	}*/
+	/*
+	 * public int getEntradasVendidas() { return entradasVendidas; }
+	 * 
+	 * public void setEntradasVendidas(int entradasVendidas) { this.entradasVendidas
+	 * = entradasVendidas; }
+	 */
 
 }

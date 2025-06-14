@@ -11,7 +11,7 @@ public class Ticketek implements ITicketek {
 	HashMap<String, Sede> sedes; // Nombre, Sede
 	HashMap<String, Funcion> funciones; // Fecha, Funcion
 	HashMap<String, Entrada> entradas;// Código?, Entrada
-	private HashMap<String, Double> recaudacionDeEspectaculos; // Nombre, Recaudación
+	private HashMap<String, Double> recaudacionPorSede; // Nombre, Recaudación
 
 	public Ticketek() {
 		this.usuarios = new HashMap<>();
@@ -19,6 +19,7 @@ public class Ticketek implements ITicketek {
 		this.sedes = new HashMap<>();
 		this.funciones = new HashMap<>();
 		this.entradas = new HashMap<>();
+		this.recaudacionPorSede = new HashMap<>();
 	}
 	// REGISTRO DE ESTADIO
 
@@ -128,8 +129,10 @@ public class Ticketek implements ITicketek {
 	    if (funciones.containsKey(claveFuncion)) {
 	        throw new RuntimeException("Ya hay una función para esa fecha");
 	    }
+	    
+	    Sede sedeObj = sedes.get(sede);
 
-	    Funcion funcion = new Funcion(fecha, sede, precioBase);
+	    Funcion funcion = new Funcion(fecha, sedeObj, precioBase);
 	    funciones.put(claveFuncion, funcion);
 	}
 
@@ -155,18 +158,42 @@ public class Ticketek implements ITicketek {
 	// Sedes no numeradas, CAMPO
 	@Override
 	public List<IEntrada> venderEntrada(String nombreEspectaculo, String fecha, String email, String contrasenia,
-			int cantidadEntradas) {
+	        int cantidadEntradas) {
 
-		List<IEntrada> entradasV = new ArrayList<>(); // lista de entradas vendidas
-		
-		if(validarUsuario(email, contrasenia)) {
-	//		throw new RuntimeException("El usuario no está registrado o la contraseña es incorrecta");
-			
-		}
-		
-		
-		return entradasV;
+	    List<IEntrada> venderEntrada = new ArrayList<>();
+
+	    if (!validarUsuario(email, contrasenia)) {
+	        throw new RuntimeException("Usuario inválido o contraseña incorrecta");
+	    }
+
+	    String claveFuncion = nombreEspectaculo + "-" + fecha;
+	    
+	    if (!funciones.containsKey(claveFuncion)) {
+	        throw new RuntimeException("No existe función para ese espectáculo en esa fecha");
+	    }
+
+	    Funcion funcion = funciones.get(claveFuncion);
+
+	    if (funcion.getSede().esNumerada()) {
+	        throw new RuntimeException("No se pueden vender entradas tipo CAMPO para una sede numerada");
+	    }
+
+	    for (int i = 0; i < cantidadEntradas; i++) {
+	    	Entrada entrada = new Entrada(nombreEspectaculo, fecha, funcion.getSede().getNombre(), funcion.getPrecioBase(), email);
+
+	        String codigo = generarCodigoEntrada(); 
+	        entradas.put(codigo, entrada); 
+
+	        venderEntrada.add(entrada);
+
+	        String claveRecaudacion = nombreEspectaculo + "-" + funcion.getSede();
+	        recaudacionPorSede.put(claveRecaudacion,
+	            recaudacionPorSede.getOrDefault(claveRecaudacion, 0.0) + entrada.precio());
+	    }
+
+	    return venderEntrada;
 	}
+
 
 	private boolean validarUsuario(String email, String contrasenia) {
 	    if (!usuarios.containsKey(email)) {
@@ -176,6 +203,12 @@ public class Ticketek implements ITicketek {
 	    Usuario usuario = usuarios.get(email);
 	    return usuario.getContrasenia().equals(contrasenia);
 	}
+	
+	
+	private String generarCodigoEntrada() {
+	    return "E" + (entradas.size() + 1);
+	}
+
 
 
 	

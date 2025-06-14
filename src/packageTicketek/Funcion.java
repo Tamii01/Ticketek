@@ -4,12 +4,12 @@ public class Funcion {
 
 
 	String fecha;
-	String sede;
+	Sede sede;
 	double precioBase;
 	int entradaVendida;
 
 	// Constructor
-	public Funcion(String fecha, String sede, double precioBase) {
+	public Funcion(String fecha, Sede sede, double precioBase) {
 
 		this.fecha = fecha;
 		this.sede = sede;
@@ -28,11 +28,11 @@ public class Funcion {
 		this.entradaVendida = entradaVendida;
 	}
 
-	public String getSede() {
+	public Sede getSede() {
 		return sede;
 	}
 
-	public void setSede(String sede) {
+	public void setSede(Sede sede) {
 		this.sede = sede;
 	}
 

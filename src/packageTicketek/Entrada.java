@@ -34,16 +34,22 @@ public class Entrada implements IEntrada{
 
     @Override
     public double precio() {
-    	if (sector.equals("Platea VIP")) {
-    		return precio * 1.70;
-    	} else if (sector.equals("Platea Comun")) {
-    		return precio * 1.40;
-    	} else if (sector.equals("Platea Baja")) {
-    		return precio * 1.50;
-    	} else {
-    		return precio; // Campo u otro sector sin adicional
-    	}
+
+        if (sector.equals("VIP")) {
+            precio *= 1.70;
+        } else if (sector.equals("Comun")) {
+            precio *= 1.40;
+        } else if (sector.equals("Baja")) {
+            precio *= 1.50;
+        }
+        
+        if (sede.tieneConsumicionLibre()) {
+            precio += 15000;
+        }
+
+        return precio;
     }
+
     
 	@Override
 	public String ubicacion() {

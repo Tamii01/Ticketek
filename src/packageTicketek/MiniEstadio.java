@@ -28,4 +28,10 @@ public class MiniEstadio extends Sede{
 		   return true;
 		}
 
+	@Override
+	public boolean tieneConsumicionLibre() {
+	    return true;
+	}
+
+	
 }

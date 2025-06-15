@@ -12,7 +12,7 @@ public class Ticketek implements ITicketek {
 	HashMap<String, Funcion> funciones; // "Espectaculo-Fecha", Funcion
 	HashMap<String, Entrada> entradas;// Código?, Entrada
 	private HashMap<String, Double> recaudacionPorSede; // "Espectaculo-Sede", Recaudación total
-	private HashMap<String, Double> recaudacionDeEspectaculos;
+	private HashMap<String, Double> recaudacionPorEspectaculo;
 
 	public Ticketek() {
 		this.usuarios = new HashMap<>();
@@ -21,7 +21,7 @@ public class Ticketek implements ITicketek {
 		this.funciones = new HashMap<>();
 		this.entradas = new HashMap<>();
 		this.recaudacionPorSede = new HashMap<>();
-		this.recaudacionDeEspectaculos = new HashMap<>();
+		this.recaudacionPorEspectaculo = new HashMap<>();
 	}
 	// REGISTRO DE ESTADIO
 
@@ -214,15 +214,14 @@ public class Ticketek implements ITicketek {
 
 			// calcula la recaudación por sede
 			String nombreSede = funcion.getSede().getNombre();
-
 			String claveRecaudacion = nombreEspectaculo + "-" + nombreSede;
 
 			double montoActual = 0.0;
 			if (recaudacionPorSede.containsKey(claveRecaudacion)) {
 				montoActual += recaudacionPorSede.get(claveRecaudacion);
 			}
-
-			recaudacionPorSede.put(claveRecaudacion, montoActual + entrada.getPrecio());
+		
+			recaudacionPorSede.put(claveRecaudacion, montoActual + entrada.precio());
 
 		}
 
@@ -276,17 +275,23 @@ public class Ticketek implements ITicketek {
 			venderEntradaNumerada.add(entradaNumerada);
 			
 			String nombreSede = funcion.getSede().getNombre();
-			
+				
+			//RECAUDADO POR SEDE
+						
 			String claveRecaudacion = nombreEspectaculo + "-" + nombreSede;
+			
+			
 			
 			double montoActual = 0.0;
 			if(recaudacionPorSede.containsKey(claveRecaudacion)) {
 				montoActual += recaudacionPorSede.get(claveRecaudacion);
+			
 			}
-			
-			recaudacionPorSede.put(claveRecaudacion, montoActual + entradaNumerada.getPrecio());
-			
+	
+			recaudacionPorSede.put(claveRecaudacion, montoActual + entradaNumerada.precio());
 		}
+		
+		
 		
 		return venderEntradaNumerada;
 	}
@@ -428,10 +433,7 @@ public class Ticketek implements ITicketek {
 	@Override
 	public double totalRecaudado(String nombreEspectaculo) {
 
-		if (espectaculos.containsKey(nombreEspectaculo)) {
 
-			return recaudacionDeEspectaculos.get(nombreEspectaculo); // obtiene la recaudación del espectaculo
-		}
 
 		return 0.0;
 	}
@@ -444,6 +446,7 @@ public class Ticketek implements ITicketek {
 		if (recaudacionPorSede.containsKey(clave)) {
 			return recaudacionPorSede.get(clave); // obtiene el valor de recaudación
 		}
+		
 		return 0.0;
 	}
 

@@ -13,10 +13,11 @@ public abstract class Sede {
 		this.direccion = direccion; 
 		this.capacidadMaxima = capacidadMaxima;
 	}
-	
-	int calcularPrecioEntrada() {
-		return 0;
+
+	public boolean tieneConsumicionLibre() {
+	    return false;
 	}
+
 	
 	public String getSector() {
 		return sector;

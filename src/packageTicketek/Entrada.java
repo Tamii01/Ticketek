@@ -5,7 +5,7 @@ public class Entrada implements IEntrada{
 	String codigo;
 	String espectaculo;
     String fecha;
-    String sede;
+    Sede sede;
     String sector;
     double precio;
     String usuario;
@@ -13,7 +13,7 @@ public class Entrada implements IEntrada{
 	
     
     //Usamos dos constructores, de acuerdo a los parametros 
-    public Entrada(String espectaculo, String fecha, String sede, double precio, String usuario) {
+    public Entrada(String espectaculo, String fecha, Sede sede, double precio, String usuario) {
         this.espectaculo = espectaculo;
         this.fecha = fecha;
         this.sede = sede;
@@ -22,7 +22,7 @@ public class Entrada implements IEntrada{
         this.sector = "CAMPO"; 
     }
 
-    public Entrada(String espectaculo, String fecha, String sede, String sector, double precio, String usuario, int[] asientos) {
+    public Entrada(String espectaculo, String fecha, Sede sede, String sector, double precio, String usuario, int[] asientos) {
         this.espectaculo = espectaculo;
         this.fecha = fecha;
         this.sede = sede;
@@ -34,12 +34,12 @@ public class Entrada implements IEntrada{
 
     @Override
     public double precio() {
-    	if (sector.equals("Platea Alta")) {
-    		return precio + 15000;
-    	} else if (sector.equals("Platea Media")) {
-    		return precio + 10000;
+    	if (sector.equals("Platea VIP")) {
+    		return precio * 1.70;
+    	} else if (sector.equals("Platea Comun")) {
+    		return precio * 1.40;
     	} else if (sector.equals("Platea Baja")) {
-    		return precio + 5000;
+    		return precio * 1.50;
     	} else {
     		return precio; // Campo u otro sector sin adicional
     	}
@@ -47,16 +47,17 @@ public class Entrada implements IEntrada{
     
 	@Override
 	public String ubicacion() {
-		if (asientos == null) return sector;
+		if (asientos == null) 
+			return sector;
 		return sector + " f:" + asientos[0] + " a:" + asientos[1];
 	} 
     
     
-	public String getSede() {
+	public Sede getSede() {
 		return sede;
 	}
 
-	public void setSede(String sede) {
+	public void setSede(Sede sede) {
 		this.sede = sede;
 	}
 

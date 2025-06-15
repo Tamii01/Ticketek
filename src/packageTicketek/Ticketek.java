@@ -261,8 +261,8 @@ public class Ticketek implements ITicketek {
 
 		List<IEntrada> entradasEspectaculo = new ArrayList<>();
 
-		for (Entrada entrada : entradas.values()) {
-			if (entrada.espectaculo.equals(nombreEspectaculo)) {
+		for (IEntrada entrada : entradas.values()) {
+			if (((Entrada) entrada).espectaculo.equals(nombreEspectaculo)) {
 				entradasEspectaculo.add(entrada);
 			}
 		}

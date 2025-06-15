@@ -1,6 +1,8 @@
 package packageTicketek;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -309,12 +311,8 @@ public class Ticketek implements ITicketek {
 
 		StringBuilder sb = new StringBuilder();
 
-//		for (Funcion funcion : funciones.values()) {
-//
-//			if (funcion.getNombreEspectaculo().equals(nombreEspectaculo)) {
-//				}
-//			}
-		return sb.toString();
+			return sb.toString();
+		
 	}
 
 	/**
@@ -342,6 +340,33 @@ public class Ticketek implements ITicketek {
 
 	@Override
 	public List<IEntrada> listarEntradasFuturas(String email, String contrasenia) {
+		if (!usuarios.containsKey(email)) {
+	        throw new RuntimeException("El usuario no está registrado");
+	    }
+
+	    Usuario usuario = usuarios.get(email);
+	    if (!usuario.contrasenia.equals(contrasenia)) {
+	        throw new RuntimeException("La contraseña no es válida");
+	    }
+
+	    List<IEntrada> futuras = new ArrayList<>();
+	    Date hoy = new Date();
+
+	    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy");
+
+	    for (Entrada entrada : entradas.values()) {
+	        if (!entrada.usuario.equals(email)) continue;
+
+	        try {
+	            Date fechaEntrada = formato.parse(entrada.fecha);
+	            if (fechaEntrada.after(hoy)) {
+	                futuras.add(entrada);
+	            }
+	        } catch (Exception e) {
+	            // Si hay error en el formato, la ignoramos
+	        }
+	    }
+
 		return null;
 	}
 
@@ -398,6 +423,7 @@ public class Ticketek implements ITicketek {
 
 	@Override
 	public IEntrada cambiarEntrada(IEntrada entrada, String contrasenia, String fecha, String sector, int asiento) {
+		
 		return null;
 	}
 
@@ -409,15 +435,50 @@ public class Ticketek implements ITicketek {
 
 	@Override
 	public double costoEntrada(String nombreEspectaculo, String fecha) {
+		
 
 		return 0;
 	}
 
 	@Override
 	public double costoEntrada(String nombreEspectaculo, String fecha, String sector) {
+		
+		String claveFuncion = nombreEspectaculo + "-" + fecha;
+		if (!funciones.containsKey(claveFuncion)) {
+	        throw new RuntimeException("No existe la función");
+	    }
 
-		return 0;
+	    Funcion funcion = funciones.get(claveFuncion);
+	    Sede sede = funcion.sede;
+
+	    if (!sede.esNumerada()) {
+	        
+	        return funcion.precioBase;
+	    }
+
+	    String[] sectores;
+	    int[] adicionales;
+
+	    if (sede instanceof Teatro) {
+	        sectores = ((Teatro) sede).sectores;
+	        adicionales = ((Teatro) sede).porcentajeAdicional;
+	    } else if (sede instanceof MiniEstadio) {
+	        sectores = ((MiniEstadio) sede).sectores;
+	        adicionales = ((MiniEstadio) sede).porcentajeAdicional;
+	    } else {
+	        throw new RuntimeException("Sede numerada desconocida");
+	    }
+
+	    for (int i = 0; i < sectores.length; i++) {
+	        if (sectores[i].equalsIgnoreCase(sector)) {
+	            double adicional = funcion.precioBase * adicionales[i] / 100.0;
+	            return funcion.precioBase + adicional;
+	        }
+	    }
+
+	    throw new RuntimeException("Sector no encontrado");
 	}
+	
 
 	/**
 	 * 12) Devuelve el total recaudado hasta el momento por un espectaculo.

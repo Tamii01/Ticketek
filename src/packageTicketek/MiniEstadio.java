@@ -1,6 +1,6 @@
 package packageTicketek;
 
-public class Miniestadio extends Sede{
+public class MiniEstadio extends Sede{
 	
 	int asientosPorFila;
 	int puestos;
@@ -12,7 +12,7 @@ public class Miniestadio extends Sede{
 	
 	
 	
-	public Miniestadio(String nombre, String direccion, int capacidadMaxima, int asientosPorFila,int puestos, 
+	public MiniEstadio(String nombre, String direccion, int capacidadMaxima, int asientosPorFila,int puestos, 
 			double consumision, String[] sectores, int[] capPorSector, int[] porcentajeAdicional) {
 		super(nombre, direccion, capacidadMaxima);
 		this.asientosPorFila=asientosPorFila;

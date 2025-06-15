@@ -5,6 +5,7 @@ public abstract class Sede {
 	String nombre;
 	String direccion;
 	int capacidadMaxima;
+	String sector;
 	
 	
 	public Sede(String nombre, String direccion, int capacidadMaxima) {
@@ -15,6 +16,14 @@ public abstract class Sede {
 	
 	int calcularPrecioEntrada() {
 		return 0;
+	}
+	
+	public String getSector() {
+		return sector;
+	}
+	
+	public void setSector(String sector) {
+		this.sector = sector;
 	}
 	
 	public String getNombre() {

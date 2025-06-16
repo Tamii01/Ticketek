@@ -1,10 +1,7 @@
 package packageTicketek;
-
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -517,15 +514,121 @@ public class Ticketek implements ITicketek {
 
 	@Override
 	public IEntrada cambiarEntrada(IEntrada entrada, String contrasenia, String fecha, String sector, int asiento) {
+	    Entrada e = (Entrada) entrada;
+	    String email = e.getUsuario();
 
-		return null;
+	    if (!usuarios.containsKey(email)) {
+	        throw new RuntimeException("Usuario no registrado");
+	    }
+
+	    Usuario usuario = usuarios.get(email);
+
+	    if (!usuario.getContrasenia().equals(contrasenia)) {
+	        throw new RuntimeException("Contraseña inválida");
+	    }
+
+	    LocalDate fechaEntrada = LocalDate.parse(e.getFecha(), DateTimeFormatter.ofPattern("dd/MM/yy"));
+	    if (fechaEntrada.isBefore(LocalDate.now())) {
+	        throw new RuntimeException("La entrada original está en el pasado");
+	    }
+
+	    String claveNuevaFuncion = e.getEspectaculo() + "-" + fecha;
+	    if (!funciones.containsKey(claveNuevaFuncion)) {
+	        throw new RuntimeException("No existe función en esa fecha");
+	    }
+
+	    Funcion nuevaFuncion = funciones.get(claveNuevaFuncion);
+	    if (!nuevaFuncion.getSede().esNumerada()) {
+	        throw new RuntimeException("La nueva función no es en sede numerada");
+	    }
+
+	    // Anular entrada anterior
+	    entradas.remove(e.getCodigo());
+	    if (usuario.getEntradas() == null) {
+	        usuario.setEntradas(new ArrayList<>());
+	    }
+	    usuario.getEntradas().remove(e);
+
+	    int[] asientoPar = {asiento / 100, asiento % 100}; // ejemplo: 305 → fila 3, asiento 5
+	    // o si ya te pasan directamente la fila y asiento separados:
+	    // int[] asientoPar = {fila, asiento};
+
+	    Entrada nuevaEntrada = new Entrada(
+	        e.getEspectaculo(),
+	        fecha,
+	        nuevaFuncion.getSede(),
+	        sector,
+	        nuevaFuncion.getPrecioBase(),
+	        email,
+	        asientoPar
+	    );
+
+	    String nuevoCodigo = generarCodigoEntrada();
+	    nuevaEntrada.setCodigo(nuevoCodigo);
+
+	    entradas.put(nuevoCodigo, nuevaEntrada);
+	    usuario.getEntradas().add(nuevaEntrada);
+
+	    return nuevaEntrada;
 	}
+
 
 	@Override
 	public IEntrada cambiarEntrada(IEntrada entrada, String contrasenia, String fecha) {
+	    Entrada e = (Entrada) entrada;
+	    String email = e.getUsuario();
 
-		return null;
+	    if (!usuarios.containsKey(email)) {
+	        throw new RuntimeException("Usuario no registrado");
+	    }
+
+	    Usuario usuario = usuarios.get(email);
+
+	    if (!usuario.getContrasenia().equals(contrasenia)) {
+	        throw new RuntimeException("Contraseña inválida");
+	    }
+
+	    LocalDate fechaEntrada = LocalDate.parse(e.getFecha(), DateTimeFormatter.ofPattern("dd/MM/yy"));
+	    if (fechaEntrada.isBefore(LocalDate.now())) {
+	        throw new RuntimeException("La entrada original está en el pasado");
+	    }
+
+	    String claveNuevaFuncion = e.getEspectaculo() + "-" + fecha;
+	    if (!funciones.containsKey(claveNuevaFuncion)) {
+	        throw new RuntimeException("No existe función en esa fecha");
+	    }
+
+	    Funcion nuevaFuncion = funciones.get(claveNuevaFuncion);
+	    if (nuevaFuncion.getSede().esNumerada()) {
+	        throw new RuntimeException("No se puede cambiar a una sede numerada desde este método");
+	    }
+
+	    // Anular entrada anterior
+	    entradas.remove(e.getCodigo());
+	    if (usuario.getEntradas() == null) {
+	        usuario.setEntradas(new ArrayList<>());
+	    }
+	    usuario.getEntradas().remove(e);
+
+
+	    // Crear nueva entrada
+	    Entrada nuevaEntrada = new Entrada(
+	        e.getEspectaculo(),
+	        fecha,
+	        nuevaFuncion.getSede(),
+	        nuevaFuncion.getPrecioBase(),
+	        email
+	    );
+
+	    String nuevoCodigo = generarCodigoEntrada();
+	    nuevaEntrada.setCodigo(nuevoCodigo);
+
+	    entradas.put(nuevoCodigo, nuevaEntrada);
+	    usuario.getEntradas().add(nuevaEntrada);
+
+	    return nuevaEntrada;
 	}
+
 
 	@Override
 	public double costoEntrada(String nombreEspectaculo, String fecha) {

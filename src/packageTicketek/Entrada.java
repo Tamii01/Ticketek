@@ -1,5 +1,8 @@
 package packageTicketek;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Entrada implements IEntrada {
 
 	String codigo;
@@ -53,8 +56,11 @@ public class Entrada implements IEntrada {
 
 		// Recargo por consumición (SOLO para estadios)
 		if (sede != null && sede.tieneConsumicionLibre()) {
-			precioFinal += 15000; // 10,000 por entrada
+		    if (sede instanceof MiniEstadio) {
+		        precioFinal += ((MiniEstadio) sede).getPrecioConsumicion();
+		    }
 		}
+
 
 		return precioFinal;
 	}
@@ -65,6 +71,21 @@ public class Entrada implements IEntrada {
 			return sector;
 		return sector + " f:" + asientos[0] + " a:" + asientos[1];
 	}
+	
+	@Override
+	public String toString() {
+	    String fechaMostrada = fecha;
+
+	    // Agregamos " P" si la fecha ya pasó
+	    LocalDate fechaEntrada = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/yy"));
+	    if (fechaEntrada.isBefore(LocalDate.now())) {
+	        fechaMostrada += " P";
+	    }
+
+	    return codigo + " - " + espectaculo + " - " + fechaMostrada + " - " + sede.getNombre() + " - " + ubicacion();
+	}
+
+
 
 	public Sede getSede() {
 		return sede;

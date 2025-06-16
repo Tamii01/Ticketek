@@ -208,6 +208,7 @@ public class Ticketek implements ITicketek {
 
 		Sede sede = funcion.getSede();
 
+		// creamos entradas nuevas según la cantidad de entradas solicitadas
 		for (int i = 0; i < cantidadEntradas; i++) {
 
 			Entrada entrada = new Entrada(nombreEspectaculo, fecha, sede, funcion.getPrecioBase(), email);
@@ -217,6 +218,7 @@ public class Ticketek implements ITicketek {
 			entradas.put(codigo, entrada);
 
 			venderEntradaCampo.add(entrada);
+
 
 			String nombreSede = funcion.getSede().getNombre();
 			String claveSede = nombreEspectaculo + "-" + nombreSede;
@@ -373,7 +375,7 @@ public class Ticketek implements ITicketek {
 
 	@Override
 	public List<IEntrada> listarTodasLasEntradasDelUsuario(String email, String contrasenia) {
-
+   
 		if (!usuarios.containsKey(email)) {
 			throw new RuntimeException("El usuario no esta registrado");
 		}
@@ -385,7 +387,7 @@ public class Ticketek implements ITicketek {
 		List<IEntrada> entradasUsuario = new ArrayList<>();// lista para almacenar entradas del usuario
 
 		for (Entrada entrada : entradas.values()) {
-			if (entrada.usuario.equals(email)) {
+			if (entrada.getUsuario().equals(email)) {
 				entradasUsuario.add(entrada); // agregamos las entradas a la lista
 			}
 		}
@@ -393,6 +395,7 @@ public class Ticketek implements ITicketek {
 		if (entradasUsuario.isEmpty()) {
 			throw new RuntimeException("No se encontraron entradas para el usuario");
 		}
+
 		return entradasUsuario;
 	}
 

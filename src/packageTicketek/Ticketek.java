@@ -399,35 +399,30 @@ public class Ticketek implements ITicketek {
 	@Override
 	public List<IEntrada> listarEntradasFuturas(String email, String contrasenia) {
 		if (!usuarios.containsKey(email)) {
-			throw new RuntimeException("El usuario no está registrado");
+			throw new RuntimeException("Usuario no registrado");
 		}
 
-		Usuario usuario = usuarios.get(email);
-		if (!usuario.contrasenia.equals(contrasenia)) {
-			throw new RuntimeException("La contraseña no es válida");
+		Usuario u = usuarios.get(email);
+
+		if (!u.getContrasenia().equals(contrasenia)) {
+			throw new RuntimeException("Contraseña incorrecta");
 		}
 
 		List<IEntrada> futuras = new ArrayList<>();
-		Date hoy = new Date();
-
-		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy");
+		LocalDate hoy = LocalDate.now();
 
 		for (Entrada entrada : entradas.values()) {
-			if (!entrada.usuario.equals(email))
-				continue;
-
-			try {
-				Date fechaEntrada = formato.parse(entrada.fecha);
-				if (fechaEntrada.after(hoy)) {
+			if (entrada.getUsuario().equals(email)) {
+				LocalDate fechaEntrada = LocalDate.parse(entrada.getFecha(), DateTimeFormatter.ofPattern("dd/MM/yy"));
+				if (fechaEntrada.isAfter(hoy)) {
 					futuras.add(entrada);
 				}
-			} catch (Exception e) {
-				// Si hay error en el formato, la ignoramos
 			}
 		}
 
-		return null;
+		return futuras;
 	}
+
 
 	@Override
 	public List<IEntrada> listarTodasLasEntradasDelUsuario(String email, String contrasenia) {
@@ -534,9 +529,35 @@ public class Ticketek implements ITicketek {
 
 	@Override
 	public double costoEntrada(String nombreEspectaculo, String fecha) {
+	    String clave = nombreEspectaculo + "-" + fecha;
 
-		return 0;
+	    if (!funciones.containsKey(clave)) {
+	        throw new RuntimeException("No existe función para ese espectáculo y fecha");
+	    }
+
+	    Funcion funcion = funciones.get(clave);
+	    Sede sede = funcion.getSede();
+
+	    if (sede.esNumerada()) {
+	        throw new RuntimeException("La función no es en un estadio");
+	    }
+
+	    double precioFinal = funcion.getPrecioBase();
+
+	    if (sede.tieneConsumicionLibre()) {
+	        // chequeamos si es MiniEstadio para usar su recargo real
+	        if (sede instanceof MiniEstadio) {
+	            precioFinal += ((MiniEstadio) sede).getPrecioConsumicion();
+	        } else {
+	            // por si hay otro tipo con consumición libre
+	            precioFinal += 15000;
+	        }
+	    }
+
+	    return precioFinal;
 	}
+
+
 
 	@Override
 	public double costoEntrada(String nombreEspectaculo, String fecha, String sector) {

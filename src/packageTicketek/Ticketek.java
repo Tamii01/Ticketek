@@ -395,7 +395,7 @@ public class Ticketek implements ITicketek {
 		if (entradasUsuario.isEmpty()) {
 			throw new RuntimeException("No se encontraron entradas para el usuario");
 		}
-
+		
 		return entradasUsuario;
 	}
 
@@ -449,7 +449,7 @@ public class Ticketek implements ITicketek {
 
 	        List<Integer> ocupados = asientosOcupados.get(claveSector);
 	        if (ocupados != null) {
-	            for (int asiento : e.getAsientos()) {
+	            for (int asiento : e.getAsientos()) { //commit de prueba
 	                ocupados.remove(Integer.valueOf(asiento));
 	            }
 	        }

@@ -310,11 +310,67 @@ public class Ticketek implements ITicketek {
 	 */
 	@Override
 	public String listarFunciones(String nombreEspectaculo) {
+	    StringBuilder sb = new StringBuilder();
 
-		StringBuilder sb = new StringBuilder();
+	    for (String clave : funciones.keySet()) {
+	        if (!clave.startsWith(nombreEspectaculo + "-")) continue;
 
-		return sb.toString();
+	        Funcion funcion = funciones.get(clave);
+	        String fecha = funcion.getFecha();
+	        Sede sede = funcion.getSede();
+	        String nombreSede = sede.getNombre();
 
+	        if (!sede.esNumerada()) {
+	            // ESTADIO
+	            int cantidadVendida = 0;
+	            for (Entrada entrada : entradas.values()) {
+	                if (entrada.getEspectaculo().equals(nombreEspectaculo) &&
+	                    entrada.getFecha().equals(fecha)) {
+	                    cantidadVendida++;
+	                }
+	            }
+	            sb.append(" - (" + fecha + ") " + nombreSede + " - " + cantidadVendida + "/" + sede.getCapacidadMaxima() + "\n");
+	        } else {
+	            // TEATRO o MINIESTADIO
+	            String[] sectores;
+	            int[] capacidades;
+
+	            if (sede instanceof Teatro) {
+	                sectores = ((Teatro) sede).sectores;
+	                capacidades = ((Teatro) sede).capPorSector;
+	            } else if (sede instanceof MiniEstadio) {
+	                sectores = ((MiniEstadio) sede).sectores;
+	                capacidades = ((MiniEstadio) sede).capPorSector;
+	            } else {
+	                continue; // no reconocido
+	            }
+
+	            // contar entradas por sector
+	            int[] vendidosPorSector = new int[sectores.length];
+	            for (Entrada entrada : entradas.values()) {
+	                if (entrada.getEspectaculo().equals(nombreEspectaculo) &&
+	                    entrada.getFecha().equals(fecha)) {
+
+	                    for (int i = 0; i < sectores.length; i++) {
+	                        if (sectores[i].equalsIgnoreCase(entrada.getSector())) {
+	                            vendidosPorSector[i]++;
+	                        }
+	                    }
+	                }
+	            }
+
+	            sb.append(" - (" + fecha + ") " + nombreSede + " - ");
+	            for (int i = 0; i < sectores.length; i++) {
+	                sb.append(sectores[i] + ": " + vendidosPorSector[i] + "/" + capacidades[i]);
+	                if (i < sectores.length - 1) {
+	                    sb.append(" | ");
+	                }
+	            }
+	            sb.append("\n");
+	        }
+	    }
+
+	    return sb.toString();
 	}
 
 	/**

@@ -6,8 +6,7 @@ public abstract class Sede {
 	String direccion;
 	int capacidadMaxima;
 	String sector;
-	
-	
+
 	public Sede(String nombre, String direccion, int capacidadMaxima) {
 		this.nombre = nombre;
 		this.direccion = direccion; 

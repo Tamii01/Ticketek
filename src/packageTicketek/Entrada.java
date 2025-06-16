@@ -1,64 +1,71 @@
 package packageTicketek;
 
-public class Entrada implements IEntrada{
-	
+public class Entrada implements IEntrada {
+
 	String codigo;
 	String espectaculo;
-    String fecha;
-    Sede sede;
-    String sector;
-    double precio;
-    String usuario;
-    int[] asientos;
-	
-    
-    //Usamos dos constructores, de acuerdo a los parametros 
-    public Entrada(String espectaculo, String fecha, Sede sede, double precio, String usuario) {
-        this.espectaculo = espectaculo;
-        this.fecha = fecha;
-        this.sede = sede;
-        this.precio = precio;
-        this.usuario = usuario;
-        this.sector = "CAMPO"; 
-    }
+	String fecha;
+	Sede sede;
+	String sector;
+	double precio;
+	String usuario;
+	int[] asientos;
 
-    public Entrada(String espectaculo, String fecha, Sede sede, String sector, double precio, String usuario, int[] asientos) {
-        this.espectaculo = espectaculo;
-        this.fecha = fecha;
-        this.sede = sede;
-        this.sector = sector;
-        this.precio = precio;
-        this.usuario = usuario;
-        this.asientos = asientos;
-    }
+	// Usamos dos constructores, de acuerdo a los parametros
+	public Entrada(String espectaculo, String fecha, Sede sede, double precio, String usuario) {
+		this.espectaculo = espectaculo;
+		this.fecha = fecha;
+		this.sede = sede;
+		this.precio = precio;
+		this.usuario = usuario;
+		this.sector = "CAMPO";
+	}
 
-    @Override
-    public double precio() {
+	public Entrada(String espectaculo, String fecha, Sede sede, String sector, double precio, String usuario,
+			int[] asientos) {
+		this.espectaculo = espectaculo;
+		this.fecha = fecha;
+		this.sede = sede;
+		this.sector = sector;
+		this.precio = precio;
+		this.usuario = usuario;
+		this.asientos = asientos;
+	}
 
-        if (sector.equals("VIP")) {
-            precio *= 1.70;
-        } else if (sector.equals("Comun")) {
-            precio *= 1.40;
-        } else if (sector.equals("Baja")) {
-            precio *= 1.50;
-        }
-        
-        if (sede.tieneConsumicionLibre()) {
-            precio += 15000;
-        }
+	@Override
+	public double precio() {
+		double precioFinal = precio;
 
-        return precio;
-    }
+		// Recargo por sector
+		if (sector != null) {
+			switch (sector) {
+			case "VIP":
+				precioFinal *= 1.70;
+				break;
+			case "Comun":
+				precioFinal *= 1.40;
+				break;
+			case "Baja":
+				precioFinal *= 1.50;
+				break;
+			}
+		}
 
-    
+		// Recargo por consumición (SOLO para estadios)
+		if (sede != null && sede.tieneConsumicionLibre()) {
+			precioFinal += 15000; // 10,000 por entrada
+		}
+
+		return precioFinal;
+	}
+
 	@Override
 	public String ubicacion() {
-		if (asientos == null) 
+		if (asientos == null)
 			return sector;
 		return sector + " f:" + asientos[0] + " a:" + asientos[1];
-	} 
-    
-    
+	}
+
 	public Sede getSede() {
 		return sede;
 	}
@@ -89,5 +96,37 @@ public class Entrada implements IEntrada{
 
 	public void setPrecio(double precio) {
 		this.precio = precio;
+	}
+	
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getSector() {
+		return sector;
+	}
+
+	public void setSector(String sector) {
+		this.sector = sector;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public int[] getAsientos() {
+		return asientos;
+	}
+
+	public void setAsientos(int[] asientos) {
+		this.asientos = asientos;
 	}
 }

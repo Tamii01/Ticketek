@@ -20,29 +20,5 @@ public class Espectaculo {
 		this.codigo = "";
 		this.funciones = null;
 	}
-	
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
-
-	public HashMap<String, Funcion> getFunciones() {
-		return funciones;
-	}
-
-	public void setFunciones(HashMap<String, Funcion> funciones) {
-		this.funciones = funciones;
-	}
 
 }

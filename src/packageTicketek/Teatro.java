@@ -1,5 +1,7 @@
 package packageTicketek;
 
+import java.util.Collection;
+
 public class Teatro extends Sede{
 	
 	int asientosPorFila;
@@ -21,4 +23,41 @@ public class Teatro extends Sede{
 	public boolean esNumerada() {
 		   return true;
 		}
+
+	@Override
+	public String resumenFuncion(String fecha, String espectaculo, Collection<Entrada> entradas) {
+	    int[] vendidosPorSector = new int[sectores.length];
+	    for (Entrada entrada : entradas) {
+	        if (entrada.espectaculo.equals(espectaculo) && entrada.fecha.equals(fecha)) {
+	            for (int i = 0; i < sectores.length; i++) {
+	                if (sectores[i].equalsIgnoreCase(entrada.sector)) {
+	                    vendidosPorSector[i]++;
+	                }
+	            }
+	        }
+	    }
+
+	    StringBuilder sb = new StringBuilder(" - (" + fecha + ") " + nombre + " - ");
+	    for (int i = 0; i < sectores.length; i++) {
+	        sb.append(sectores[i] + ": " + vendidosPorSector[i] + "/" + capPorSector[i]);
+	        if (i < sectores.length - 1) {
+	            sb.append(" | ");
+	        }
+	    }
+	    sb.append("\n");
+	    return sb.toString();
+	}
+
+	@Override
+	public double calcularCostoEntrada(Funcion funcion, String sector) {
+	    for (int i = 0; i < sectores.length; i++) {
+	        if (sectores[i].equalsIgnoreCase(sector)) {
+	            double adicional = funcion.precioBase * porcentajeAdicional[i] / 100.0;
+	            return funcion.precioBase + adicional;
+	        }
+	    }
+	    throw new RuntimeException("Sector no encontrado");
+	}
+
+	
 }

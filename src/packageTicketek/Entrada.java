@@ -56,11 +56,10 @@ public class Entrada implements IEntrada {
 
 		// Recargo por consumición (SOLO para estadios)
 		if (sede != null && sede.tieneConsumicionLibre()) {
-		    if (sede instanceof MiniEstadio) {
-		        precioFinal += ((MiniEstadio) sede).getPrecioConsumicion();
-		    }
+			if (sede instanceof MiniEstadio) {
+				precioFinal += ((MiniEstadio) sede).precioConsumicion;
+			}
 		}
-
 
 		return precioFinal;
 	}
@@ -71,83 +70,36 @@ public class Entrada implements IEntrada {
 			return sector;
 		return sector + " f:" + asientos[0] + " a:" + asientos[1];
 	}
-	
+
 	@Override
 	public String toString() {
-	    String fechaMostrada = fecha;
+		String fechaMostrada = fecha;
 
-	    // Agregamos " P" si la fecha ya pasó
-	    LocalDate fechaEntrada = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/yy"));
-	    if (fechaEntrada.isBefore(LocalDate.now())) {
-	        fechaMostrada += " P";
-	    }
+		// Agregamos " P" si la fecha ya pasó
+		LocalDate fechaEntrada = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/yy"));
+		if (fechaEntrada.isBefore(LocalDate.now())) {
+			fechaMostrada += " P";
+		}
 
-	    return codigo + " - " + espectaculo + " - " + fechaMostrada + " - " + sede.getNombre() + " - " + ubicacion();
+		return codigo + " - " + espectaculo + " - " + fechaMostrada + " - " + sede.nombre + " - " + ubicacion();
 	}
 
-
-
-	public Sede getSede() {
-		return sede;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null || getClass() != obj.getClass())
+			return false;
+		Entrada other = (Entrada) obj;
+		return codigo.equals(other.codigo);
 	}
 
-	public void setSede(Sede sede) {
-		this.sede = sede;
-	}
-
-	public String getEspectaculo() {
-		return espectaculo;
-	}
-
-	public void setEspectaculo(String espectaculo) {
-		this.espectaculo = espectaculo;
-	}
-
-	public String getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
-
-	public double getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(double precio) {
-		this.precio = precio;
+	@Override
+	public int hashCode() {
+		return codigo.hashCode();
 	}
 	
-	public String getCodigo() {
-		return codigo;
-	}
-
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
-	}
-
-	public String getSector() {
-		return sector;
-	}
-
-	public void setSector(String sector) {
-		this.sector = sector;
-	}
-
-	public String getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
-
-	public int[] getAsientos() {
-		return asientos;
-	}
-
-	public void setAsientos(int[] asientos) {
-		this.asientos = asientos;
 	}
 }

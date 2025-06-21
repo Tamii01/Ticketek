@@ -63,7 +63,7 @@ public class Entrada implements IEntrada {
 
 		return precioFinal;
 	}
-
+	//.
 	@Override
 	public String ubicacion() {
 		if (asientos == null)

@@ -18,7 +18,7 @@ public class Usuario {
 		this.email = email;
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.contrasenia = contrasenia;
+		this.contrasenia = contrasenia;//.
 	}
 
 	@Override

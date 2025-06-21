@@ -15,7 +15,7 @@ public abstract class Sede {
 	}
 
 	public boolean tieneConsumicionLibre() {
-		return false;
+		return false;//.
 	}
 
 	public double calcularCostoEntradaSinNumerar(Funcion funcion) {

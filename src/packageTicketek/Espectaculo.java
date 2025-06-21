@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class Espectaculo {
 
-	String nombre;
+	String nombre;//.
 	String codigo;
 	HashMap<String, Funcion> funciones; // Fecha, Obj
 

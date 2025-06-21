@@ -46,7 +46,7 @@ public class MiniEstadio extends Sede {
 	@Override
 	public String resumenFuncion(String fecha, String espectaculo, Collection<Entrada> entradas) {
 	    int[] vendidosPorSector = new int[sectores.length];
-	    for (Entrada entrada : entradas) {
+	    for (Entrada entrada : entradas) {//.
 	        if (entrada.espectaculo.equals(espectaculo) && entrada.fecha.equals(fecha)) {
 	            for (int i = 0; i < sectores.length; i++) {
 	                if (sectores[i].equalsIgnoreCase(entrada.sector)) {

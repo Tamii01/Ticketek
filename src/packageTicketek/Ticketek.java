@@ -17,7 +17,7 @@ public class Ticketek implements ITicketek {
 	HashMap<String, Entrada> entradas;// Código, Entrada
 	private HashMap<String, Double> recaudacionPorSede; // "Espectaculo-Sede", Recaudación total
 	private HashMap<String, Double> recaudacionPorEspectaculo; // "Espectaculo", Recaudación total por espectáculo
-	private HashMap<String, Set<Integer>> asientosOcupados;
+	private HashMap<String, Set<Integer>> asientosOcupados; //.
 
 	public Ticketek() {
 		this.usuarios = new HashMap<>();
@@ -448,7 +448,7 @@ public class Ticketek implements ITicketek {
 
 			if (ocupados != null) {
 				for (int asiento : asientos) {
-					ocupados.remove(asiento); // O(1) por cada uno
+					ocupados.remove(asiento);
 				}
 			}
 		}

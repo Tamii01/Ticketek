@@ -9,7 +9,7 @@ public class MiniEstadio extends Sede {
 	String[] sectores;
 	int[] capPorSector;
 	int[] porcentajeAdicional;
-	double precioConsumicion; //hace falta poner private?
+	double precioConsumicion;
 
 	public MiniEstadio(String nombre, String direccion, int capacidadMaxima, int asientosPorFila, int puestos,
 			double precioConsumicion, String[] sectores, int[] capPorSector, int[] porcentajeAdicional) {
@@ -22,7 +22,6 @@ public class MiniEstadio extends Sede {
 		this.porcentajeAdicional = porcentajeAdicional;
 	}
 
-	// si tiene asientos o sectores
 	public boolean esNumerada() {
 		return true;
 	}
@@ -46,7 +45,7 @@ public class MiniEstadio extends Sede {
 	@Override
 	public String resumenFuncion(String fecha, String espectaculo, Collection<Entrada> entradas) {
 	    int[] vendidosPorSector = new int[sectores.length];
-	    for (Entrada entrada : entradas) {//.
+	    for (Entrada entrada : entradas) {
 	        if (entrada.espectaculo.equals(espectaculo) && entrada.fecha.equals(fecha)) {
 	            for (int i = 0; i < sectores.length; i++) {
 	                if (sectores[i].equalsIgnoreCase(entrada.sector)) {
@@ -77,4 +76,11 @@ public class MiniEstadio extends Sede {
 	    }
 	    throw new RuntimeException("Sector no encontrado");
 	}
+	
+	@Override
+	public double getPrecioConsumicion() {
+		return precioConsumicion;
+	}
+
+	
 }

@@ -9,7 +9,7 @@ public class Estadio extends Sede {
 	}
 
 	public boolean esNumerada() {
-		return false;//.
+		return false;
 	}
 	
 	@Override
@@ -29,5 +29,4 @@ public class Estadio extends Sede {
 	}
 
 
-	
 }

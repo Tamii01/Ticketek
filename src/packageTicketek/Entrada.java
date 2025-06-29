@@ -14,7 +14,6 @@ public class Entrada implements IEntrada {
 	String usuario;
 	int[] asientos;
 
-	// Usamos dos constructores, de acuerdo a los parametros
 	public Entrada(String espectaculo, String fecha, Sede sede, double precio, String usuario) {
 		this.espectaculo = espectaculo;
 		this.fecha = fecha;
@@ -41,29 +40,23 @@ public class Entrada implements IEntrada {
 
 		// Recargo por sector
 		if (sector != null) {
-			switch (sector) {
-			case "VIP":
+			if (sector.equals("VIP")) {
 				precioFinal *= 1.70;
-				break;
-			case "Comun":
+			} else if (sector.equals("Comun")) {
 				precioFinal *= 1.40;
-				break;
-			case "Baja":
+			} else if (sector.equals("Baja")) {
 				precioFinal *= 1.50;
-				break;
 			}
 		}
 
-		// Recargo por consumición (SOLO para estadios)
+		// Recargo por consumición (solo para estadios)
 		if (sede != null && sede.tieneConsumicionLibre()) {
-			if (sede instanceof MiniEstadio) {
-				precioFinal += ((MiniEstadio) sede).precioConsumicion;
-			}
+			precioFinal += sede.getPrecioConsumicion();
 		}
 
 		return precioFinal;
 	}
-	//.
+
 	@Override
 	public String ubicacion() {
 		if (asientos == null)
@@ -75,7 +68,6 @@ public class Entrada implements IEntrada {
 	public String toString() {
 		String fechaMostrada = fecha;
 
-		// Agregamos " P" si la fecha ya pasó
 		LocalDate fechaEntrada = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/yy"));
 		if (fechaEntrada.isBefore(LocalDate.now())) {
 			fechaMostrada += " P";
@@ -103,3 +95,4 @@ public class Entrada implements IEntrada {
 		this.codigo = codigo;
 	}
 }
+

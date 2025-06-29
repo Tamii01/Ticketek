@@ -15,7 +15,7 @@ public abstract class Sede {
 	}
 
 	public boolean tieneConsumicionLibre() {
-		return false;//.
+		return false;
 	}
 
 	public double calcularCostoEntradaSinNumerar(Funcion funcion) {
@@ -28,10 +28,13 @@ public abstract class Sede {
 	    return precio;
 	}
 	
+	public double getPrecioConsumicion() {
+		return 0.0;
+	}
 	public abstract boolean esNumerada();
 
 	public abstract String resumenFuncion(String fecha, String espectaculo, Collection<Entrada> entradas);
 
 	public abstract double calcularCostoEntrada(Funcion funcion, String sector);
-	
+
 }

@@ -17,7 +17,7 @@ public class Ticketek implements ITicketek {
 	HashMap<String, Entrada> entradas;// Código, Entrada
 	private HashMap<String, Double> recaudacionPorSede; // "Espectaculo-Sede", Recaudación total
 	private HashMap<String, Double> recaudacionPorEspectaculo; // "Espectaculo", Recaudación total por espectáculo
-	private HashMap<String, Set<Integer>> asientosOcupados; //.
+	private HashMap<String, Set<Integer>> asientosOcupados; // "Espectaculo-Fecha-Sector", Set de asientos ocupados
 
 	public Ticketek() {
 		this.usuarios = new HashMap<>();
@@ -204,7 +204,6 @@ public class Ticketek implements ITicketek {
 
 		Sede sede = funcion.sede;
 
-		// creamos entradas nuevas según la cantidad de entradas solicitadas
 		for (int i = 0; i < cantidadEntradas; i++) {
 
 			Entrada entrada = new Entrada(nombreEspectaculo, fecha, sede, funcion.precioBase, email);
@@ -358,19 +357,19 @@ public class Ticketek implements ITicketek {
 		List<IEntrada> futuras = new ArrayList<>();
 		LocalDate hoy = LocalDate.now();
 
-		Iterator<Entrada> it = entradas.values().iterator();
-		while (it.hasNext()) {
-			Entrada entrada = it.next();
-			if (entrada.usuario.equals(email)) {
-				LocalDate fechaEntrada = LocalDate.parse(entrada.fecha, DateTimeFormatter.ofPattern("dd/MM/yy"));
+		for (IEntrada entrada : entradas.values()) {
+			Entrada e = (Entrada) entrada;
+			if (e.usuario.equals(email)) {
+				LocalDate fechaEntrada = LocalDate.parse(e.fecha, DateTimeFormatter.ofPattern("dd/MM/yy"));
 				if (fechaEntrada.isAfter(hoy)) {
-					futuras.add(entrada);
+					futuras.add(e);
 				}
 			}
 		}
 
 		return futuras;
 	}
+
 
 	@Override
 	public List<IEntrada> listarTodasLasEntradasDelUsuario(String email, String contrasenia) {
@@ -498,10 +497,7 @@ public class Ticketek implements ITicketek {
 		}
 		usuario.entradas.remove(e);
 
-		int[] asientoPar = { asiento / 100, asiento % 100 }; // ejemplo: 305 → fila 3, asiento 5
-		// o si ya te pasan directamente la fila y asiento separados:
-		// int[] asientoPar = {fila, asiento};
-
+		int[] asientoPar = { asiento / 100, asiento % 100 };
 		Entrada nuevaEntrada = new Entrada(e.espectaculo, fecha, nuevaFuncion.sede, sector, nuevaFuncion.precioBase,
 				email, asientoPar);
 
@@ -540,19 +536,33 @@ public class Ticketek implements ITicketek {
 		}
 
 		Funcion nuevaFuncion = funciones.get(claveNuevaFuncion);
+
 		if (nuevaFuncion.sede.esNumerada()) {
 			throw new RuntimeException("No se puede cambiar a una sede numerada desde este método");
 		}
 
-		// Anular entrada anterior
 		entradas.remove(e.codigo);
+
 		if (usuario.entradas == null) {
 			usuario.setEntradas(new ArrayList<>());
 		}
-		usuario.entradas.remove(e);
 
-		// Crear nueva entrada
-		Entrada nuevaEntrada = new Entrada(e.espectaculo, fecha, nuevaFuncion.sede, nuevaFuncion.precioBase, email);
+		Iterator<Entrada> it = usuario.entradas.iterator();
+		boolean eliminada = false;
+		while (it.hasNext() && !eliminada) {
+			if (it.next().equals(e)) {
+				it.remove();
+				eliminada = true;
+			}
+		}
+
+		Entrada nuevaEntrada = new Entrada(
+			e.espectaculo,
+			fecha,
+			nuevaFuncion.sede,
+			nuevaFuncion.precioBase,
+			email
+		);
 
 		String nuevoCodigo = generarCodigoEntrada();
 		nuevaEntrada.setCodigo(nuevoCodigo);
@@ -562,6 +572,7 @@ public class Ticketek implements ITicketek {
 
 		return nuevaEntrada;
 	}
+
 
 	@Override
 	public double costoEntrada(String nombreEspectaculo, String fecha) {

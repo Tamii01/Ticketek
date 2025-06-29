@@ -10,15 +10,11 @@ public class Usuario {
 	String contrasenia;
 	List<Entrada> entradas;
 
-	public void setEntradas(List<Entrada> entradas) {
-		this.entradas = entradas;
-	}
-
 	public Usuario(String email, String nombre, String apellido, String contrasenia) {
 		this.email = email;
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.contrasenia = contrasenia;//.
+		this.contrasenia = contrasenia;
 	}
 
 	@Override
@@ -36,4 +32,7 @@ public class Usuario {
 		return email.hashCode();
 	}
 
+	public void setEntradas(List<Entrada> entradas) {
+		this.entradas = entradas;
+	}
 }

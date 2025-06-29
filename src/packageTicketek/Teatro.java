@@ -19,7 +19,6 @@ public class Teatro extends Sede{
 		this.porcentajeAdicional= porcentajeAdicional;
 	}
 	
-	//Si tiene asientos y sectores
 	public boolean esNumerada() {
 		   return true;
 		}
